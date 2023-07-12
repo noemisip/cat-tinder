@@ -26,14 +26,11 @@ class CatStore {
 
     await firebaseFirestore.collection("LikedCats").get().then((querySnapshot) {
       likedCats = [];
-      print("elotte" + likedCats.length.toString());
       for (var result in querySnapshot.docs) {
         Cat cat = Cat.fromJson(result.data());
         likedCats.add(cat);
-        print(cat.id);
       }
     });
-    print("utana" + likedCats.length.toString());
   }
 
   Future<void> getAllDisLikedCats() async {

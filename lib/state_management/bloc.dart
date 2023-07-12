@@ -10,7 +10,6 @@ class CatBloc extends Bloc<CatEvent, CatState> {
       try {
         emit(CatLoading());
         final cat = await catStore.chooseCurrentCat();
-        print("ittvunk");
         emit(CatLoaded(cat!));
       } catch (error) {
         emit(CatError(error.toString()));
