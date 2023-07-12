@@ -45,8 +45,10 @@ class CatList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-     List<Cat?> likedCats = catStore.getLikedCats();
-     List<Cat?> disLikedCats = catStore.getDislikedCats();
+     List<Cat?> likedCats = [];
+     List<Cat?> disLikedCats = [];
+     likedCats = catStore.getLikedCats();
+     disLikedCats = catStore.getDislikedCats();
 
     return ListView.builder(
       padding: EdgeInsets.zero,
