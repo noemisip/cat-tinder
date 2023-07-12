@@ -4,6 +4,8 @@ import 'package:cat_tinder/assets/constants.dart';
 import 'package:cat_tinder/cat_store.dart';
 import 'package:cat_tinder/widgets/header.dart';
 
+import '../model/cat.dart';
+
 Widget likedPage({required bool liked}) {
 
   final catStore = GetIt.instance.get<CatStore>();
@@ -36,12 +38,16 @@ Widget likedPage({required bool liked}) {
 
 
 class CatList extends StatelessWidget {
-  const CatList({Key? key, required this.liked}) : super(key: key);
+  CatList({Key? key, required this.liked}) : super(key: key);
 
   final bool liked;
+  final catStore = GetIt.instance.get<CatStore>();
 
   @override
   Widget build(BuildContext context) {
+     List<Cat?> likedCats = catStore.getLikedCats();
+     List<Cat?> disLikedCats = catStore.getDislikedCats();
+
     return ListView.builder(
       padding: EdgeInsets.zero,
       itemBuilder: (context, index) {
@@ -50,23 +56,23 @@ class CatList extends StatelessWidget {
           child: ClipRRect(
               borderRadius: BorderRadius.circular(20),
               child: (liked == true)
-                  ? CatStore.likedCats.isEmpty
+                  ? likedCats.isEmpty
                       ? Container()
-                      : Image.network(CatStore.likedCats[index]!.url!,
+                      : Image.network(likedCats[index]!.url!,
                           fit: BoxFit.cover,
                           width: MediaQuery.of(context).size.width - 40,
                           height: 200)
-                  : CatStore.dislikedCats.isEmpty
+                  : disLikedCats.isEmpty
                       ? Container()
-                      : Image.network(CatStore.dislikedCats[index]!.url!,
+                      : Image.network(disLikedCats[index]!.url!,
                           fit: BoxFit.cover,
                           width: MediaQuery.of(context).size.width - 40,
                           height: 200)),
         );
       },
       itemCount: (liked == true)
-          ? CatStore.likedCats.length
-          : CatStore.dislikedCats.length,
+          ? likedCats.length
+          : disLikedCats.length,
     );
   }
 }

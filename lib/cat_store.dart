@@ -82,4 +82,13 @@ class CatStore {
   Cat? getCurrentCat() {
     return currentCat;
   }
+
+  List<Cat?> getLikedCats(){
+    return likedCats;
+  }
+
+  List<Cat?> getDislikedCats(){
+    return dislikedCats;
+  }
+
 }
